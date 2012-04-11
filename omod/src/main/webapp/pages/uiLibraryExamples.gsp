@@ -1,15 +1,26 @@
 <% ui.decorateWith("standardPage") %>
 
 <div style="float: right; width: 33%">
-	${ ui.includeFragment("infobox", [id: "infobox"]) }
+	<fieldset>
+		<legend>Infobox</legend>
+		${ ui.includeFragment("infobox", [id: "infobox"]) }
+	</fieldset>
 </div>
+
+<fieldset>
+	<legend>Encounter Field</legend>
+	
+	${ ui.includeFragment("widget/labeledField", [ label: "Choose an Encounter", class: "org.openmrs.Encounter", formFieldName: "encId" ]) }
+	<input type="button" id="showEncounterButton" value="Show Encounter in Infobox"/>
+</fieldset>
+	 
 
 Add more examples here.
 
 <script>
     jq(function() {
-    	jQuery.getJSON('${ ui.actionLink('data', 'getEncounter', [encounterId: 3]) }', function(encounter) {
-    		infobox.showEncounter(encounter);
-    	});
+        jq('#showEncounterButton').click(function() {
+        	infobox.showEncounter(jq('input[name=encId]').val());
+        });
     });
 </script>

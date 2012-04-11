@@ -6,8 +6,8 @@
 	ui.includeJavascript("jquery-ui.js")
 %>
 
-<% /* Move this script to a js file */ %>
 <script>
+// TODO rewrite this and move it to the static js file
 function Infobox(id) {
 	var rootId = id;
 	
@@ -17,13 +17,21 @@ function Infobox(id) {
 	
 	this.setTitle = function(html) {
 		jQuery('#' + rootId + ' > .title').html(html);
-	}
+	};
 	
 	this.setContent = function(html) {
 		jQuery('#' + rootId + ' > .content').html(html);
-	}
+	};
 	
 	this.showEncounter = function(encounter) {
+		if (typeof encounter == 'number' || typeof encounter == 'string') {
+			var that = this;
+			getFragmentActionAsJson('data', 'getEncounter', { encounterId: encounter }, function(enc) {
+				that.showEncounter(enc);
+			});
+			return;
+		}
+		
 		var title = encounter.encounterType + '<br/>';
 		title += 'Date: ' + encounter.encounterDatetime + '<br/>';
 		title += 'Location: ' + encounter.location + '<br/>';
@@ -35,8 +43,7 @@ function Infobox(id) {
 		}
 		content += '</table>';
 		this.setContent(content);
-	}
-
+	};
 }
 </script>
 
