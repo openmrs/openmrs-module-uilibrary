@@ -33,7 +33,7 @@ public class DataFragmentController {
 	 * Fetches a simplified version of an encounter object
 	 */
 	public SimpleObject getEncounter(UiUtils ui, @RequestParam("encounterId") Encounter enc) {
-		SimpleObject ret = SimpleObject.fromObject(enc, ui, "encounterId", "encounterDatetime", "encounterType", "location");
+		SimpleObject ret = buildEncounter(ui, enc);
 		List<SimpleObject> obs = new ArrayList<SimpleObject>();
 		for (Obs o : enc.getObs()) {
 			SimpleObject simple = new SimpleObject();
@@ -44,5 +44,20 @@ public class DataFragmentController {
 		ret.put("obs", obs);
 		return ret;
 	}
+	
+	/**
+	 * Search for encounter by string
+	 */
+	public List<SimpleObject> findEncounters(UiUtils ui, @RequestParam("term") String term) {
+		List<SimpleObject> ret = new ArrayList<SimpleObject>();
+		for (Encounter e : Context.getEncounterService().getEncounters(term, 0, 100, false)) {
+			ret.add(buildEncounter(ui, e));
+		}
+		return ret;
+	}
+
+	private SimpleObject buildEncounter(UiUtils ui, Encounter enc) {
+    	return SimpleObject.fromObject(enc, ui, "encounterId", "encounterDatetime", "encounterType", "location");
+    }
 	
 }
