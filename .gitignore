@@ -4,4 +4,6 @@ api/.classpath
 api/target
 omod/.classpath
 omod/target
+.idea
+*iml
 .DS_Store
