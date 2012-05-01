@@ -6,7 +6,7 @@ function formatEncounter(encounter) {
 
 <%= ui.includeFragment("widget/autocomplete", [
 	id: config.id,
-	initialValue: config.currentValue,
+	initialValue: config.initialValue,
 	formFieldName: config.formFieldName,
 	visibleFieldId: config.visibleFieldId,
 	source: ui.actionLink("data", "findEncounters"),
