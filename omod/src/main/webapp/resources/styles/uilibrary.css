@@ -241,3 +241,7 @@ ul.one-line {
     border: 1px grey solid;
     background: white;
 }
+
+.button {
+	cursor: pointer;
+}
