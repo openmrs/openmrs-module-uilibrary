@@ -17,4 +17,13 @@ function formatEncounter(encounter) {
 
 <span id="${ config.id }-error" class="error" style="display: none"></span>
 
-<% /* TODO copy and refactor if (config.parentFormId) section from prior implementation */ %>
+<% if (config.parentFormId) { %>
+<script>
+    FieldUtils.defaultSubscriptions('${ config.parentFormId }', '${ config.formFieldName }', '${ config.id }');
+    jq(function() {
+    	jq('#${ config.id }').change(function() {
+    		publish('${ config.parentFormId }/changed');
+    	});
+    });
+</script>
+<% } %>

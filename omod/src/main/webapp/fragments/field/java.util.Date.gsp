@@ -1,16 +1,23 @@
-<%
-    def id = config.visibleFieldId ?: ui.randomId('field')
-%>
-
 <script>
     \$(document).ready(function() {
-        \$('#${ id }').datepicker({
+        \$('#${ config.id }').datepicker({
             <% if (config.required) { %>
-            onClose: function(dateText, inst) { clearErrors('${ id }_error'); validateRequired(dateText, '${ id }_error'); }
+            onClose: function(dateText, inst) { clearErrors('${ config.id }-error'); validateRequired(dateText, '${ config.id }-error'); }
             <% } %>
         });
     });
 </script>
 
-<input id="${ id }" type="text" name="${ config.formFieldName }" value="${ config.initialValue ?: "" }" />
-<span id="${ id }_error" class="error" style="display: none"></span>
+<input id="${ config.id }" type="text" name="${ config.formFieldName }" value="${ config.initialValue ?: "" }" />
+<span id="${ config.id }-error" class="error" style="display: none"></span>
+
+<% if (config.parentFormId) { %>
+<script>
+    FieldUtils.defaultSubscriptions('${ config.parentFormId }', '${ config.formFieldName }', '${ config.id }');
+    jq(function() {
+    	jq('#${ config.id }').change(function() {
+    		publish('${ config.parentFormId }/changed');
+    	});
+    });
+</script>
+<% } %>

@@ -60,6 +60,7 @@ table.bordered th {
 .field-label {
 	display: block;
 	background-color: #eeeeee;
+	font-size: 0.8em;
 }
 
 .field-content {
