@@ -63,7 +63,15 @@ function fragmentActionError(jqXHR, defaultMessage) {
 
 // utility methods for js/gsp compatibility
 function actionLink(fragmentName, actionName, options) {
-	var ret = OPENMRS_CONTEXT_PATH + '/' + fragmentName + '/' + actionName + '.action?';
+	var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + fragmentName + '/' + actionName + '.action?';
+	if (options)
+		for (key in options)
+			ret += key + '=' + options[key] + '&';
+	return ret;
+}
+
+function pageLink(pageName, options) {
+	var ret = '/' + OPENMRS_CONTEXT_PATH + '/pages/' + pageName + '.page?';
 	if (options)
 		for (key in options)
 			ret += key + '=' + options[key] + '&';

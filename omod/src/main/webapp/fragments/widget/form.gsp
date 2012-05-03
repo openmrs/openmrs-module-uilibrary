@@ -8,6 +8,8 @@
 // supports successCallbacks (a list of js snippets wrapped in function(data) { ... })
 // supports submitOnEvent (will subscribe to the given topic, and submit when it fires)
 // supports resetOnSubmit (default true)
+// supports submitLabel (button will only be shown if you provide this)
+// supports cancelLabel (button will only be shown if you provide this)
 
 // supports fields (list, whose elements can be)
 //		[ label, formFieldName, class, fieldConfig ] ... delegates to the field fragment
@@ -46,14 +48,15 @@
     	def prefix = config.prefix ?: ""
     	if (config.hiddenProperties) {
     		config.hiddenProperties.each { propName ->
-    			fields << [ hiddenInputName: "${ prefix }.${ propName }", value: config.commandObject."${ propName }" ] 
+    			fields << [ hiddenInputName: "${ prefix }.${ propName }", value: ui.convert(config.commandObject."${ propName }", java.lang.String) ] 
     		}
     	}
     	if (config.properties) {
     		config.properties.each { propName ->
     		    fields << [ label: ui.message("${ messagePrefix }.${ propName }"),
     		                formFieldName: "${ prefix }.${ propName }",
-    		                class: PropertyUtils.getPropertyType(config.commandObject, propName) ]
+    		                object: config.commandObject,
+    		                property: propName ]
     		}
     	}
     }  
@@ -67,7 +70,7 @@
     def fragment
     if (it.fragment)
         fragment = it.fragment
-    else if (it.class)
+    else if (it.class || (it.object && it.property))
         fragment = "widget/field"
     else if (it.value && !it.hiddenInputName)
     	fragment = "widget/field"

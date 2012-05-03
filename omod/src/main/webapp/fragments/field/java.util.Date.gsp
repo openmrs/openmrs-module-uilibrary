@@ -1,20 +1,43 @@
+<%
+    ui.includeJavascript("coreFragments.js")
+%>
+
 <script>
-    \$(document).ready(function() {
-        \$('#${ config.id }').datepicker({
-            <% if (config.required) { %>
-            onClose: function(dateText, inst) { clearErrors('${ config.id }-error'); validateRequired(dateText, '${ config.id }-error'); }
-            <% } %>
-        });
-    });
+	jq(function() {
+		jq('#${ config.id }').datepicker({
+            dateFormat: 'dd-M-yy',
+            altField: '#${ config.id }_hidden',
+		    altFormat: 'yy-mm-dd',
+		    changeMonth: true,
+		    changeYear: true,
+		    showButtonPanel: true,
+		    autoSize: true
+			<% if (config.required) { %>
+				, onClose: function(dateText, inst) { clearErrors('${ config.id }-error'); validateRequired(dateText, '${ config.id }-error'); }
+			<% } %>
+		});
+	});
 </script>
 
-<input id="${ config.id }" type="text" name="${ config.formFieldName }" value="${ config.initialValue ?: "" }" />
+<input id="${ config.id }_hidden" type="hidden" name="${ config.formFieldName }" <% if (config.initialValue) { %>value="${ ui.dateToString(config.initialValue) }<% } %>"/>
+<input id="${ config.id }" type="text" <% if (config.initialValue) { %>value="${ ui.format(config.initialValue) }"<% } %>/>
 <span id="${ config.id }-error" class="error" style="display: none"></span>
+
 
 <% if (config.parentFormId) { %>
 <script>
-    FieldUtils.defaultSubscriptions('${ config.parentFormId }', '${ config.formFieldName }', '${ config.id }');
-    jq(function() {
+	subscribe('${ config.parentFormId }.reset', function() {
+		jq('#${ config.id }').datepicker('setDate', null);
+	    jq('#${ config.id }-error').html("").hide();
+	});
+	subscribe('${ config.parentFormId }.clear-errors', function() {
+	    jq('#${ config.id }-error').html("").hide();
+	});
+	subscribe('${ config.parentFormId }/${ config.formFieldName }.show-errors', function(message, payload) {
+	    FieldUtils.showErrorList('${ config.id }-error', payload);
+	});
+	
+	jq(function() {
     	jq('#${ config.id }').change(function() {
     		publish('${ config.parentFormId }/changed');
     	});
