@@ -1,10 +1,11 @@
 
 <%= ui.includeFragment("widget/selectList", [
-        selected: [config.initialValue],
+        selected: [ config.initialValue?.id ],
         formFieldName: config.formFieldName,
         options: context.getLocationService().getAllLocations(),
         optionsDisplayField: 'name',
-        optionsValueField: 'id'
+        optionsValueField: 'id',
+        includeEmptyOption: config.includeEmptyOption
 ]) %>
 
 <% if (config.parentFormId) { %>
