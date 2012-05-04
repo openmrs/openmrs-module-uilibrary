@@ -5,7 +5,7 @@
         options: context.getLocationService().getAllLocations(),
         optionsDisplayField: 'name',
         optionsValueField: 'id',
-        includeEmptyOption: config.includeEmptyOption
+        includeEmptyOption: true
 ]) %>
 
 <% if (config.parentFormId) { %>
