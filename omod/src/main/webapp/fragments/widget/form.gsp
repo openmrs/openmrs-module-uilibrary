@@ -104,34 +104,36 @@
 
 <% if (mode == "json") { %>
     <script>
-        jq('#${ id }').submit(function(e) {
-            e.preventDefault();
-            publish('${ id }.clear-errors');
-            var form = jq(this);
-            var data = form.serialize();
-            jq.ajax({
-                type: "POST",
-                url: form.attr('action'),
-                data: data,
-                dataType: "json"
-            })
-            .success(function(data) {
-            	<% if (resetOnSubmit) { %>
-                	publish('${ id }.reset');
-                <% } %>
-               	<% if (config.successEvent) { %>
-                	publish('${ config.successEvent }', data);
-                <% } %>
-            })
-            <% if (config.successCallbacks) config.successCallbacks.each { %>
-                .success(function(data) {
-                    ${ it }
-                })
-            <% } %>
-            .error(function(jqXHR, textStatus, errorThrown) {
-            	formWidget.handleSubmitError('${ id }', jqXHR);
-            });
-        });
+    	jq(function() {
+	        jq('#${ id }').submit(function(e) {
+	            e.preventDefault();
+	            publish('${ id }.clear-errors');
+	            var form = jq(this);
+	            var data = form.serialize();
+	            jq.ajax({
+	                type: "POST",
+	                url: form.attr('action'),
+	                data: data,
+	                dataType: "json"
+	            })
+	            .success(function(data) {
+	            	<% if (resetOnSubmit) { %>
+	                	publish('${ id }.reset');
+	                <% } %>
+	               	<% if (config.successEvent) { %>
+	                	publish('${ config.successEvent }', data);
+	                <% } %>
+	            })
+	            <% if (config.successCallbacks) config.successCallbacks.each { %>
+	                .success(function(data) {
+	                    ${ it }
+	                })
+	            <% } %>
+	            .error(function(jqXHR, textStatus, errorThrown) {
+	            	formWidget.handleSubmitError('${ id }', jqXHR);
+	            });
+	        });
+		});
     </script>
 <% } %>
 <% if (config.submitOnEvent) { %>

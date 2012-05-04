@@ -13,7 +13,7 @@
 	else
 		config.successCallbacks = [ closeCallback ]
 	
-	config.buttonConfig.onClick = "showDivAsDialog('#${ id }_form', '${ ui.escapeJs(config.popupTitle) }')"
+	config.buttonConfig.onClick = "showDivAsDialog('#${ config.id }_form', '${ ui.escapeJs(config.popupTitle) }')"
 %>
 
 ${ ui.includeFragment("widget/button", config.buttonConfig) }
