@@ -78,6 +78,12 @@ function pageLink(pageName, options) {
 	return ret;
 }
 
+function resourceLink(providerName, resourceName) {
+	if (providerName == null)
+		providerName = '*';
+	return '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + providerName + '/' + resourceName; 
+}
+
 function isTrueHelper(test) {
 	if (!test)
 		return false;
@@ -152,6 +158,12 @@ function patientChanged(patientId, property) {
 			message += "/" + property;
 		message += ".changed"
 		publish(message, patient);
+	});
+}
+
+function getJsonAsEvent(url, eventTitle) {
+	jQuery.getJSON(url, function(data) {
+		publish(eventTitle, data);
 	});
 }
 
