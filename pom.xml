@@ -3,7 +3,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>uilibrary</artifactId>
-	<version>1.1</version>
+	<version>1.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>UI Library Module</name>
 	<description>Library of useful widgets, decorators, and fragments for the UI Framework module</description>
