@@ -310,3 +310,11 @@ function getFragmentActionAsJson(fragmentName, actionName, params, callback) {
 			callback(result);
 	});
 }
+
+function debugObject(obj) {
+	var str = "";
+	for (key in obj) {
+		str += key + " -> " + obj[key] + "\n";
+	}
+	window.alert(str);
+}
