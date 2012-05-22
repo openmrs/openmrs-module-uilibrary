@@ -13,12 +13,20 @@ body {
 }
 
 #errors {
-	background-color: yellow;
+    background-color: lightpink;
 	font-weight: bold;
 }
 
 #flash {
+    background-color: lightyellow;
 	font-weight: bold;
+}
+
+#errors, #flash {
+    margin-top: 3px;
+    margin-bottom: 5px;
+    border: 1px dashed;
+    padding: 2px 2px 2px 18px;
 }
 
 table.bordered {
