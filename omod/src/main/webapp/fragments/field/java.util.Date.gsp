@@ -19,7 +19,7 @@
 	});
 </script>
 
-<input id="${ config.id }_hidden" type="hidden" name="${ config.formFieldName }" <% if (config.initialValue) { %>value="${ ui.dateToString(config.initialValue) }<% } %>"/>
+<input id="${ config.id }_hidden" type="hidden" name="${ config.formFieldName }" <% if (config.initialValue) { %>value="${ ui.dateToString(config.initialValue) }"<% } %>/>
 <input id="${ config.id }" type="text" <% if (config.initialValue) { %>value="${ ui.format(config.initialValue) }"<% } %>/>
 <span id="${ config.id }-error" class="error" style="display: none"></span>
 
