@@ -12,7 +12,7 @@ body {
 	padding: 0.25em 0.4em;
 }
 
-#errors {
+#errors, .global-error-container {
     background-color: lightpink;
 	font-weight: bold;
 }
@@ -22,7 +22,7 @@ body {
 	font-weight: bold;
 }
 
-#errors, #flash {
+#errors, #flash, .global-error-container {
     margin-top: 3px;
     margin-bottom: 5px;
     border: 1px dashed;
