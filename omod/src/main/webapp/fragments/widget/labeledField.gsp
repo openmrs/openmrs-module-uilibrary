@@ -5,4 +5,8 @@
 	ui.decorateWith("labeled", config)
 %>
 
-${ ui.includeFragment("widget/field", config ) }
+${ ui.includeFragment("widget/field", config) }
+
+<% if (config.afterField) { %>
+	${ config.afterField }
+<% } %>
