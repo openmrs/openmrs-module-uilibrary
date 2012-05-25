@@ -60,8 +60,16 @@ var ui = (function($) {
 					opts.onError(xhr, form, globalError);
 				});
 			});
+		},
+		
+		applyAlternatingClasses: function(selector, first, second) {
+			if (typeof first === 'string') {
+				$(selector).children(':even').addClass(first);
+			}
+			if (typeof second === 'string') {
+				$(selector).children(':odd').addClass(second);
+			}
 		}
-	
 	};
 
 })(jQuery);

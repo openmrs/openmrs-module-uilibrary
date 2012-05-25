@@ -92,6 +92,10 @@ table.decorated {
 	border-spacing: 1px;
 }
 
+table.decorated thead th {
+	background-color: #cccccc;
+}
+
 table.decorated td,th {
 	padding: 2px;
 	text-align: left;
