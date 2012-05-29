@@ -2,8 +2,13 @@
 // supports icon, iconProvider, label, extra
 // supports onClick (javascript snippet)
 // supports href (link url)
+// supports classes (applied to button)
 
 def id = config.id ?: ui.randomId("button")
+def classes = [ "button " ];
+if (config.classes) {
+	classes.addAll(config.classes)
+}
 %>
 <style>
 .button > .icon {
@@ -20,7 +25,7 @@ def id = config.id ?: ui.randomId("button")
 }
 </style>
 
-<button id="${ id }" class="button">
+<button id="${ id }" class="${ classes.join(' ') }">
 	<% if (config.icon) { %>
 		<img class="icon" src="${ ui.resourceLink(config.iconProvider, "images/" + config.icon) }" />
 	<% } %>
