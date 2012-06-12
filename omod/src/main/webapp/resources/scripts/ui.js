@@ -69,6 +69,18 @@ var ui = (function($) {
 			if (typeof second === 'string') {
 				$(selector).children(':odd').addClass(second);
 			}
+		},
+		
+		resourceLink: function(providerName, resourceName) {
+			if (providerName == null)
+				providerName = '*';
+			return '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + providerName + '/' + resourceName; 
+		},
+		
+		reloadPage: function() {
+			var html = '<div id="reload-page-spinner"><img src="' + this.resourceLink('uilibrary', 'images/loading.gif') + '"/></div>';
+			$('#content').append(html);
+			location.href = location.href;
 		}
 	};
 
