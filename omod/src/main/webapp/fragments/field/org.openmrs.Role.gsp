@@ -1,6 +1,7 @@
 <% ui.includeJavascript("coreFragments.js") %>
 
 <%= ui.includeFragment("widget/selectList", [
+		id: config.id,
         selected: [ config.initialValue?.role ],
         formFieldName: config.formFieldName,
         options: context.getUserService().getAllRoles(),

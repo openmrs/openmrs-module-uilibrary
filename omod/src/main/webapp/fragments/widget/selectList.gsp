@@ -7,7 +7,7 @@ config.require("formFieldName", "options", "optionsValueField", "optionsDisplayF
 
 def emptyOptionLabel = config.emptyOptionLabel ?: ""
 %>
-<select name="${ config.formFieldName }" ${ config.multiple ? 'multiple' : '' } <% if (config.size) { %>size="${config.size}"<% } %>>
+<select id="${ config.id }" name="${ config.formFieldName }" ${ config.multiple ? 'multiple' : '' } <% if (config.size) { %>size="${config.size}"<% } %>>
 
     <%  if (config.includeEmptyOption) { %>
         <option value="">${ emptyOptionLabel }</option>
