@@ -1,7 +1,7 @@
 <%
 // supports propConfig.options (will use an autocomplete)
 // supports propConfig.size
-// supports config.type = textarea, config.rows, config.cols
+// supports config.type = textarea, config.type=password, config.rows, config.cols
 
 	ui.includeJavascript("uilibrary", "coreFragments.js")
 %>
@@ -22,8 +22,9 @@
 	
 <% } else {
 	def size = config?.propConfig?.size ?: 40
+	def inputType = config?.config?.type == "password" ? "password" : "text"
 %>
-	<input id="${ config.id }" type="text" name="${ config.formFieldName }" size="${ size }" value="${ config.initialValue ?: "" }"/>
+	<input id="${ config.id }" type="${ inputType }" name="${ config.formFieldName }" size="${ size }" value="${ config.initialValue ?: "" }"/>
 <% } %>
 
 <span id="${ config.id }-error" class="error" style="display: none"></span>
