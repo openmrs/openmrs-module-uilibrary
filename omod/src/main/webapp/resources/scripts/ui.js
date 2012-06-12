@@ -77,9 +77,27 @@ var ui = (function($) {
 			return '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + providerName + '/' + resourceName; 
 		},
 		
+		openLoadingDialog: function(message) {
+			if ($('#loading-dialog-overlay').length == 0) {
+				$('#content').append('<div id="loading-dialog-overlay"></div>');
+
+				var html = '<div id="loading-dialog-message">';
+				html += '<img src="' + this.resourceLink('uilibrary', 'images/loading.gif') + '"/>';
+				if (message) {
+					html += message;
+				}
+				html += '</div>';
+				$('#content').append(html);
+			}
+		},
+		
+		closeLoadingDialog: function() {
+			$('#loading-dialog-overlay').remove();
+			$('#loading-dialog-message').remove();
+		},
+		
 		reloadPage: function() {
-			var html = '<div id="reload-page-spinner"><img src="' + this.resourceLink('uilibrary', 'images/loading.gif') + '"/></div>';
-			$('#content').append(html);
+			this.openLoadingDialog();
 			location.href = location.href;
 		}
 	};
