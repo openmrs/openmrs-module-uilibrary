@@ -77,6 +77,25 @@ var ui = (function($) {
 			return '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + providerName + '/' + resourceName; 
 		},
 		
+		fragmentActionLink: function(fragmentName, actionName, options) {
+			var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + fragmentName + '/' + actionName + '.action?';
+			if (options) {
+				for (key in options) {
+					ret += key + '=' + options[key] + '&';
+				}
+			}
+			return ret;
+		},
+		
+		getFragmentActionAsJson: function(fragmentName, actionName, params, callback) {
+			var url = this.fragmentActionLink(fragmentName, actionName, params);
+			jQuery.getJSON(url, params, function(result) {
+				if (callback) {
+					callback(result);
+				}
+			});
+		},
+		
 		openLoadingDialog: function(message) {
 			if ($('#loading-dialog-overlay').length == 0) {
 				$('#content').append('<div id="loading-dialog-overlay"></div>');
