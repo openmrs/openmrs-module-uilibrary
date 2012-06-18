@@ -7,3 +7,5 @@ omod/target
 .idea
 *iml
 .DS_Store
+
+target/checkout/

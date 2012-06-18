@@ -1,17 +1,19 @@
 <%
-// supports propConfig.options (will use an autocomplete)
-// supports propConfig.size
-// supports config.type = textarea, config.rows, config.cols
+// supports config.options (will use an autocomplete)
+// supports config.size
+// supports config.type = textarea, config.type=password, config.rows, config.cols
 
 	ui.includeJavascript("uilibrary", "coreFragments.js")
 %>
-<% if (config?.propConfig?.options) { %>
-    ${ ui.includeFragment("widget/autocomplete", [
+<% if (config?.config?.options) { %>
+    ${ ui.includeFragment("widget/selectList", [
             id: config.id,
             formFieldName: config.formFieldName,
-            options: config.propConfig.options,
-            valueProperty: 'value',
-            labelProperty: 'label'
+            options: config.config.options,
+            optionsValueField: 'value',
+            optionsDisplayField: 'label',
+            selected: config.initialValue,
+            includeEmptyOption: true
         ]) }
 
 <% } else if (config?.config?.type == 'textarea') {
@@ -21,9 +23,10 @@
 	<textarea id="${ config.id }" name="${ config.formFieldName }" rows="${ rows }" cols="${ cols }">${ config.initialValue ?: "" }</textarea>
 	
 <% } else {
-	def size = config?.propConfig?.size ?: 40
+	def size = config?.config?.size ?: 40
+	def inputType = config?.config?.type == "password" ? "password" : "text"
 %>
-	<input id="${ config.id }" type="text" name="${ config.formFieldName }" size="${ size }" value="${ config.initialValue ?: "" }"/>
+	<input id="${ config.id }" type="${ inputType }" name="${ config.formFieldName }" size="${ size }" value="${ config.initialValue ?: "" }"/>
 <% } %>
 
 <span id="${ config.id }-error" class="error" style="display: none"></span>

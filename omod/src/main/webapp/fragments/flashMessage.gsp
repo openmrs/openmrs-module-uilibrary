@@ -11,14 +11,14 @@
 
 <div id="errors" <% if (!err) { %>style="display: none"<% } %>>
     <div id="error-message" style="float: left">
-        <% if (err) { %>${ err }<% } %>
+        <% if (err) { %>${ ui.message(err) }<% } %>
     </div>
     <div style="clear: both"></div>
 </div>
 
 <div id="flash" <% if (!msg) { %>style="display: none"<% } %>>
     <div id="flash-message" style="float: left">
-        <% if (msg) { %>${ msg }<% } %>
+        <% if (msg) { %>${ ui.message(msg) }<% } %>
     </div>
     <div style="clear: both"></div>
 </div>

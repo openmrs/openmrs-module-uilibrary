@@ -1,8 +1,16 @@
+<%
+config.require("formFieldName", "options", "optionsValueField", "optionsDisplayField")
+// supports includeEmptyOption
+// supports emptyOptionLabel
+// supports multiple & size
+// supports selected
 
-<select name="${ config.formFieldName }" ${ config.multiple ? 'multiple' : '' } <% if (config.size) { %>size="${config.size}"<% } %>>
+def emptyOptionLabel = config.emptyOptionLabel ?: ""
+%>
+<select id="${ config.id }" name="${ config.formFieldName }" ${ config.multiple ? 'multiple' : '' } <% if (config.size) { %>size="${config.size}"<% } %>>
 
     <%  if (config.includeEmptyOption) { %>
-        <option value=""/>
+        <option value="">${ emptyOptionLabel }</option>
     <% } %>
 
     <% config.options.each { %>

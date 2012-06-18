@@ -17,6 +17,7 @@
 //		[ value ] ... displays a value
 //		[ hiddenInputName, value ] ... includes a hidden value
 // supports commandObject + properties + hiddenProperties + prefix (introspects fields from a java object)
+//     when using commandObject, supports propConfig (map from property name to config map) 
 
 // supports noDecoration
 
@@ -56,7 +57,8 @@
     		    fields << [ label: ui.message("${ messagePrefix }.${ propName }"),
     		                formFieldName: "${ prefix }.${ propName }",
     		                object: config.commandObject,
-    		                property: propName ]
+    		                property: propName,
+    		                config: config?.propConfig?."${ propName }" ]
     		}
     	}
     }  
