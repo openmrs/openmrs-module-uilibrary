@@ -2,6 +2,8 @@
 	config.require("buttonConfig", "popupTitle")
 	// config should be like the config of widget/form plus a buttonConfig, which is passed to widget/button
 	
+	// config supports dialogOpts (will be passed as opts to showDivAsDialog)
+	
 	def id = config.id ?: ui.randomId("popupForm")
 	config.id = id
 
@@ -13,7 +15,7 @@
 	else
 		config.successCallbacks = [ closeCallback ]
 	
-	config.buttonConfig.onClick = "showDivAsDialog('#${ config.id }_form', '${ ui.escapeJs(config.popupTitle) }')"
+	config.buttonConfig.onClick = "showDivAsDialog('#${ config.id }_form', '${ ui.escapeJs(config.popupTitle) }', ${ config.dialogOpts })"
 %>
 
 ${ ui.includeFragment("widget/button", config.buttonConfig) }
