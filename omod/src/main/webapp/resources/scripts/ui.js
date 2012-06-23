@@ -26,6 +26,16 @@ var ui = (function($) {
 		}
 	}
 	
+	var toQueryString = function(options) {
+		var ret = "?";
+		if (options) {
+			for (key in options) {
+				ret += key + '=' + options[key] + '&';
+			}
+		}
+		return ret;
+	}
+	
 	return {
 		
 		/*
@@ -71,6 +81,11 @@ var ui = (function($) {
 			}
 		},
 		
+		pageLink: function(pageName, options) {
+			var ret = '/' + OPENMRS_CONTEXT_PATH + '/pages/' + pageName + '.page';
+			return ret + toQueryString(options);
+		},
+		
 		resourceLink: function(providerName, resourceName) {
 			if (providerName == null)
 				providerName = '*';
@@ -78,13 +93,8 @@ var ui = (function($) {
 		},
 		
 		fragmentActionLink: function(fragmentName, actionName, options) {
-			var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + fragmentName + '/' + actionName + '.action?';
-			if (options) {
-				for (key in options) {
-					ret += key + '=' + options[key] + '&';
-				}
-			}
-			return ret;
+			var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + fragmentName + '/' + actionName + '.action';
+			return ret += toQueryString(options);
 		},
 		
 		getFragmentActionAsJson: function(fragmentName, actionName, params, callback) {
@@ -118,6 +128,13 @@ var ui = (function($) {
 		reloadPage: function() {
 			this.openLoadingDialog();
 			location.href = location.href;
+		},
+		
+		escapeHtmlAttribute: function(string) {
+			// TODO actually implement this
+			string = string.replace("'", "\'");
+			string = string.replace('"', '\\"');
+			return string;
 		}
 	};
 
