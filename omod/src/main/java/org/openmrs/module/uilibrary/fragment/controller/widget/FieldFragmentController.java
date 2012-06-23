@@ -38,6 +38,9 @@ public class FieldFragmentController {
 		Object initialValue = null;
 		if (config.getAttribute("object") != null) {
 			config.require("property"); // remove this line when the above require can check for it
+			if (config.getAttribute("formFieldName") == null) {
+				config.addAttribute("formFieldName", config.getAttribute("property"));
+			}
 			Object bean = config.getAttribute("object");
 			String property = (String) config.getAttribute("property");
 			clazz = PropertyUtils.getPropertyType(bean, property);
