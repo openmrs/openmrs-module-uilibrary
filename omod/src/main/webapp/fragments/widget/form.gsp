@@ -18,7 +18,8 @@
 //		[ value ] ... displays a value
 //		[ hiddenInputName, value ] ... includes a hidden value
 // supports commandObject + properties + hiddenProperties + prefix (introspects fields from a java object)
-//     when using commandObject, supports propConfig (map from property name to config map) 
+//     when using commandObject, supports propConfig (map from property name to config map)
+//     when using commandObject, supports extraFields 
 
 // supports noDecoration
 
@@ -61,6 +62,9 @@
     		                property: propName,
     		                config: config?.propConfig?."${ propName }" ]
     		}
+    	}
+    	if (config.extraFields) {
+    		fields.addAll(config.extraFields)
     	}
     }  
 %>
