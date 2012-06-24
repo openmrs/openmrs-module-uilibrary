@@ -1,6 +1,6 @@
 <%
-	config.require("buttonConfig", "popupTitle")
-	// config should be like the config of widget/form plus a buttonConfig, which is passed to widget/button
+	config.require("buttonConfig | linkConfig", "popupTitle")
+	// config should be like the config of widget/form plus a buttonConfig, which is passed to widget/button (or linkConfig for widget/link)
 	
 	// config supports dialogOpts (will be passed as opts to showDivAsDialog)
 	
@@ -15,10 +15,18 @@
 	else
 		config.successCallbacks = [ closeCallback ]
 	
-	config.buttonConfig.onClick = "showDivAsDialog('#${ config.id }_form', '${ ui.escapeJs(config.popupTitle) }', ${ config.dialogOpts })"
+	def onClick = "showDivAsDialog('#${ config.id }_form', '${ ui.escapeJs(config.popupTitle) }', ${ config.dialogOpts })"
 %>
 
-${ ui.includeFragment("widget/button", config.buttonConfig) }
+<% if (config.buttonConfig) {
+	config.buttonConfig.onClick = onClick
+%>
+	${ ui.includeFragment("widget/button", config.buttonConfig) }
+<% } else {
+	config.linkConfig.onClick = onClick
+%>
+	${ ui.includeFragment("widget/link", config.linkConfig) }
+<% } %>
 
 <div id="${ id }_form" style="display: none">
     ${ ui.includeFragment("widget/form", config) }
