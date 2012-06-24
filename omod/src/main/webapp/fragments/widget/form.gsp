@@ -10,6 +10,7 @@
 // supports resetOnSubmit (default true)
 // supports submitLabel (button will only be shown if you provide this)
 // supports cancelLabel (button will only be shown if you provide this)
+// supports submitLoadingMessage (if specified, show a loading dialog with this message on ajax submit. this loading message will be closed on an error response, but on a success response it's up to the caller to close it)
 
 // supports fields (list, whose elements can be)
 //		[ label, formFieldName, class, fieldConfig ] ... delegates to the field fragment
@@ -110,6 +111,9 @@
 	        jq('#${ id }').submit(function(e) {
 	            e.preventDefault();
 	            publish('${ id }.clear-errors');
+	            <% if (config.submitLoadingMessage) { %>
+	            	ui.openLoadingDialog('${ ui.escapeJs(config.submitLoadingMessage) }');
+	            <% } %>
 	            var form = jq(this);
 	            var data = form.serialize();
 	            jq.ajax({
@@ -133,6 +137,9 @@
 	            <% } %>
 	            .error(function(jqXHR, textStatus, errorThrown) {
 	            	formWidget.handleSubmitError('${ id }', jqXHR);
+	            	<% if (config.submitLoadingMessage) { %>
+	                	ui.closeLoadingDialog();
+	                <% } %>
 	            });
 	        });
 		});

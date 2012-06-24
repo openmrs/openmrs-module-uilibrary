@@ -108,7 +108,7 @@ var ui = (function($) {
 		
 		openLoadingDialog: function(message) {
 			if ($('#loading-dialog-overlay').length == 0) {
-				$('#content').append('<div id="loading-dialog-overlay"></div>');
+				$('body').append('<div id="loading-dialog-overlay"></div>');
 
 				var html = '<div id="loading-dialog-message">';
 				html += '<img src="' + this.resourceLink('uilibrary', 'images/loading.gif') + '"/>';
@@ -116,7 +116,7 @@ var ui = (function($) {
 					html += message;
 				}
 				html += '</div>';
-				$('#content').append(html);
+				$('body').append(html);
 			}
 		},
 		
