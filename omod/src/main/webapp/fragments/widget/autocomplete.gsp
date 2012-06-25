@@ -9,9 +9,9 @@
 	// config supports minLength (default 0)
 	// config supports showGetAll (default false, controls whether there's a button for get-all)
 	// config supports size (default 20, controls the size of the visible text field)
+	// config supports selected (should be a Map or Object with label and value properties)
 	
 	// TODO consider visibleFieldId in original implementation
-	// TODO consider selected in original implementation
 
 	def id = config.id ?: ui.randomId('autocomplete')
 	def labelFunction = config.labelFunction ?: 'function(item) { return item.label }'
@@ -57,8 +57,8 @@ jq(function() {
 });
 </script>
 
-<input type="hidden" name="${ config.formFieldName }" id="${ config.id }_value" />
-<input type="text" id="${ config.id }" size="${ size }"/>
+<input type="hidden" name="${ config.formFieldName }" id="${ config.id }_value" <% if (config.selected) { %> value="${ config.selected.value }" <% } %>/>
+<input type="text" id="${ config.id }" size="${ size }" <% if (config.selected) { %> value="${ config.selected.label }" <% } %>/>
 <% if (showGetAll) { %>
 	<a href="javascript:jq('#${ config.id }').autocomplete('search', '').focus();" tabindex="-1">
 		<img src="${ ui.resourceLink("images/search_16.png") }"/>
