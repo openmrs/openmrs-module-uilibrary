@@ -18,7 +18,8 @@
 //		[ value ] ... displays a value
 //		[ hiddenInputName, value ] ... includes a hidden value
 // supports commandObject + properties + hiddenProperties + prefix (introspects fields from a java object)
-//     when using commandObject, supports propConfig (map from property name to config map)
+//     when using commandObject, supports fieldConfig (map from property name to config map for the field)
+//     when using commandObject, supports propConfig (map from property name to config map, passed as config to the default field)
 //     when using commandObject, supports extraFields 
 
 // supports noDecoration
@@ -56,11 +57,18 @@
     	}
     	if (config.properties) {
     		config.properties.each { propName ->
-    		    fields << [ label: ui.message("${ messagePrefix }.${ propName }"),
+    			def override = config?.fieldConfig?."${ propName }"
+    			def fieldOverride = new org.openmrs.ui.framework.fragment.FragmentConfiguration()
+    			if (override)
+    				fieldOverride.mergeAttributes(override)
+    			fieldOverride.mergeAttributes([
+    						label: ui.message("${ messagePrefix }.${ propName }"),
     		                formFieldName: "${ prefix }.${ propName }",
     		                object: config.commandObject,
     		                property: propName,
-    		                config: config?.propConfig?."${ propName }" ]
+    		                config: config?.propConfig?."${ propName }"
+						]) 
+    		    fields << fieldOverride
     		}
     	}
     	if (config.extraFields) {
