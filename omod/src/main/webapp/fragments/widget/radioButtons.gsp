@@ -7,7 +7,7 @@ config.require("formFieldName", "options")
 // supports onChange (javascript function to be executed when any of the radio buttons change)
 
 def optionsValueField = config.optionsValueField ?: "value"
-def optionsDisplayField = config.optionsValueField ?: "label"
+def optionsDisplayField = config.optionsDisplayField ?: "label"
 def separator = config.separator ?: "<br/>"
 %>
 
