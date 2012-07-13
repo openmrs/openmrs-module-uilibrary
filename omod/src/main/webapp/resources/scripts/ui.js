@@ -36,6 +36,10 @@ var ui = (function($) {
 		return ret;
 	}
 	
+	var confirmBeforeNavigationSetup = {
+		configured : false
+	};
+	
 	return {
 		
 		/*
@@ -135,7 +139,38 @@ var ui = (function($) {
 			string = string.replace("'", "\'");
 			string = string.replace('"', '\\"');
 			return string;
+		},
+		
+		confirmBeforeNavigating: function(formSelector) {
+			if (!confirmBeforeNavigationSetup.configured) {
+				window.onbeforeunload = function() {
+					var blockers = $('.confirm-before-navigating').filter(function() {
+							return $(this).data('confirmBeforeNavigating') === 'dirty';
+						}).length > 0;
+
+					if (blockers) {
+						return "If you leave this page you will lose unsaved changes";
+					}
+				}
+				confirmBeforeNavigationSetup.configured = true;
+			}
+
+			var jq = $(formSelector);
+			
+			jq.addClass('confirm-before-navigating');
+			jq.data('confirmBeforeNavigating', 'clean');
+			jq.find(':input').on('change.confirm-before-navigating', function() {
+				$(this).parents('.confirm-before-navigating').data('confirmBeforeNavigating', 'dirty');
+			});
+		},
+		
+		cancelConfirmBeforeNavigating: function(formSelector) {
+			var jq = $(formSelector);
+			jq.find(':input').off('change.confirm-before-navigating');
+			jq.data('confirmBeforeNavigating', null);
+			jq.removeClass('confirm-before-navigating');
 		}
+		
 	};
 
 })(jQuery);
