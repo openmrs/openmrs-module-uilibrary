@@ -37,7 +37,8 @@ var ui = (function($) {
 	}
 	
 	var confirmBeforeNavigationSetup = {
-		configured : false
+		configured: false,
+		enabled: false
 	};
 	
 	return {
@@ -144,15 +145,19 @@ var ui = (function($) {
 		confirmBeforeNavigating: function(formSelector) {
 			if (!confirmBeforeNavigationSetup.configured) {
 				window.onbeforeunload = function() {
-					var blockers = $('.confirm-before-navigating').filter(function() {
-							return $(this).data('confirmBeforeNavigating') === 'dirty';
-						}).length > 0;
-
-					if (blockers) {
-						return "If you leave this page you will lose unsaved changes";
+					if (confirmBeforeNavigationSetup.enabled) {
+						var blockers = $('.confirm-before-navigating').filter(function() {
+								var jq = $(this);
+								return jq.data('confirmBeforeNavigating') === 'dirty'
+							}).length > 0;
+	
+						if (blockers) {
+							return "If you leave this page you will lose unsaved changes";
+						}
 					}
 				}
 				confirmBeforeNavigationSetup.configured = true;
+				confirmBeforeNavigationSetup.enabled = true;
 			}
 
 			var jq = $(formSelector);
@@ -169,6 +174,14 @@ var ui = (function($) {
 			jq.find(':input').off('change.confirm-before-navigating');
 			jq.data('confirmBeforeNavigating', null);
 			jq.removeClass('confirm-before-navigating');
+		},
+		
+		disableConfirmBeforeNavigating: function() {
+			confirmBeforeNavigationSetup.enabled = false;
+		},
+		
+		enableConfirmBeforeNavigating: function() {
+			confirmBeforeNavigationSetup.enabled = true;
 		}
 		
 	};

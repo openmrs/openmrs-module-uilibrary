@@ -59,8 +59,6 @@
     		config.properties.each { propName ->
     			def override = config?.fieldConfig?."${ propName }"
     			def fieldOverride = new org.openmrs.ui.framework.fragment.FragmentConfiguration()
-    			if (override)
-    				fieldOverride.mergeAttributes(override)
     			fieldOverride.mergeAttributes([
     						label: ui.message("${ messagePrefix }.${ propName }"),
     		                formFieldName: "${ prefix }.${ propName }",
@@ -68,6 +66,8 @@
     		                property: propName,
     		                config: config?.propConfig?."${ propName }"
 						]) 
+    			if (override)
+    				fieldOverride.mergeAttributes(override)
     		    fields << fieldOverride
     		}
     	}
@@ -141,6 +141,7 @@
 	               	<% if (config.successEvent) { %>
 	                	publish('${ config.successEvent }', data);
 	                <% } %>
+	                ui.disableConfirmBeforeNavigating();
 	            })
 	            <% if (config.successCallbacks) config.successCallbacks.each { %>
 	                .success(function(data) {
@@ -156,7 +157,14 @@
 	        });
 		});
     </script>
+<% } else { /* standard form submission */ %>
+	<script>
+		jq('#${ id }').submit(function(e) {
+			ui.disableConfirmBeforeNavigating();
+		});
+	</script>
 <% } %>
+
 <% if (config.submitOnEvent) { %>
 	<script>
 		var timeoutId${ id } = null;

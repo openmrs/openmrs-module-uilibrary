@@ -15,7 +15,10 @@
 	else
 		config.successCallbacks = [ closeCallback ]
 	
-	def onClick = "showDivAsDialog('#${ config.id }_form', '${ ui.escapeJs(config.popupTitle) }', ${ config.dialogOpts })"
+	def onClick = """
+		showDivAsDialog('#${ config.id }_form', '${ ui.escapeJs(config.popupTitle) }', ${ config.dialogOpts });
+		ui.confirmBeforeNavigating('#${ config.id }_form'); 
+	"""
 %>
 
 <% if (config.buttonConfig) {
