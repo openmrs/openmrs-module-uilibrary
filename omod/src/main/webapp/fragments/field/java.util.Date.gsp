@@ -16,6 +16,12 @@
 			<% if (config.required) { %>
 				, onClose: function(dateText, inst) { clearErrors('${ config.id }-error'); validateRequired(dateText, '${ config.id }-error'); }
 			<% } %>
+            <% if (config.maxDate) { %>
+                , maxDate: '${ config.maxDate }'
+            <% } %>
+            <% if (config.minDate) { %>
+                , minDate: '${ config.minDate }'
+            <% } %>
 		});
 	});
 </script>
