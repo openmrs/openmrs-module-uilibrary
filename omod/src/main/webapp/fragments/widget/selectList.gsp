@@ -16,7 +16,7 @@ def emptyOptionLabel = config.emptyOptionLabel ?: ""
     <% config.options.each { %>
     <option value="${ it[config.optionsValueField] }"
         ${ config.selected?.contains(it[config.optionsValueField]) ? 'selected' : ''}
-    >${ it[config.optionsDisplayField] }</option>
+    >${ ui.format(it[config.optionsDisplayField]) }</option>
     <% } %>
 
 </select>

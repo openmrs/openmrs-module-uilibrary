@@ -172,7 +172,7 @@ function getJsonAsEvent(url, eventTitle) {
 var openmrsDialogCurrentlyShown = null;
 var openmrsDialogIFrame = null;
 
-function showDivAsDialog(selector, title) {
+function showDivAsDialog(selector, title, opts) {
 	// There is (what I consider) a bug in jquery-ui dialog, where displaying a dialog that
 	// has scripts in it re-executes the scripts. We introduce a hack to get around this, by
 	// removing all scripts before we display the dialog, and then reattaching them. But we
@@ -182,15 +182,17 @@ function showDivAsDialog(selector, title) {
 	var dialogContainer = $(selector);
 	var dialogScripts = dialogContainer.find("script");
 	dialogScripts.remove();
-	openmrsDialogCurrentlyShown = $(selector).dialog({
+	var optsToUse = {
 			draggable: false,
 			resizable: false,
-			show: null,
 			width: '90%',
 			height: $(window).height()-50,
 			modal: true,
 			title: title
-		});
+		};
+	if (opts)
+	optsToUse = $.extend(optsToUse, opts)
+	openmrsDialogCurrentlyShown = $(selector).dialog(optsToUse);
 	dialogScripts.each(function() {
 		dialogContainer.get(0).appendChild(this);
 	});

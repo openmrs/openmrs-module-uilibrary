@@ -10,6 +10,7 @@
 // supports resetOnSubmit (default true)
 // supports submitLabel (button will only be shown if you provide this)
 // supports cancelLabel (button will only be shown if you provide this)
+// supports submitLoadingMessage (if specified, show a loading dialog with this message on ajax submit. this loading message will be closed on an error response, but on a success response it's up to the caller to close it)
 
 // supports fields (list, whose elements can be)
 //		[ label, formFieldName, class, fieldConfig ] ... delegates to the field fragment
@@ -17,7 +18,9 @@
 //		[ value ] ... displays a value
 //		[ hiddenInputName, value ] ... includes a hidden value
 // supports commandObject + properties + hiddenProperties + prefix (introspects fields from a java object)
-//     when using commandObject, supports propConfig (map from property name to config map) 
+//     when using commandObject, supports fieldConfig (map from property name to config map for the field)
+//     when using commandObject, supports propConfig (map from property name to config map, passed as config to the default field)
+//     when using commandObject, supports extraFields 
 
 // supports noDecoration
 
@@ -54,12 +57,22 @@
     	}
     	if (config.properties) {
     		config.properties.each { propName ->
-    		    fields << [ label: ui.message("${ messagePrefix }.${ propName }"),
+    			def override = config?.fieldConfig?."${ propName }"
+    			def fieldOverride = new org.openmrs.ui.framework.fragment.FragmentConfiguration()
+    			fieldOverride.mergeAttributes([
+    						label: ui.message("${ messagePrefix }.${ propName }"),
     		                formFieldName: "${ prefix }.${ propName }",
     		                object: config.commandObject,
     		                property: propName,
-    		                config: config?.propConfig?."${ propName }" ]
+    		                config: config?.propConfig?."${ propName }"
+						]) 
+    			if (override)
+    				fieldOverride.mergeAttributes(override)
+    		    fields << fieldOverride
     		}
+    	}
+    	if (config.extraFields) {
+    		fields.addAll(config.extraFields)
     	}
     }  
 %>
@@ -110,6 +123,9 @@
 	        jq('#${ id }').submit(function(e) {
 	            e.preventDefault();
 	            publish('${ id }.clear-errors');
+	            <% if (config.submitLoadingMessage) { %>
+	            	ui.openLoadingDialog('${ ui.escapeJs(config.submitLoadingMessage) }');
+	            <% } %>
 	            var form = jq(this);
 	            var data = form.serialize();
 	            jq.ajax({
@@ -125,6 +141,7 @@
 	               	<% if (config.successEvent) { %>
 	                	publish('${ config.successEvent }', data);
 	                <% } %>
+	                ui.disableConfirmBeforeNavigating();
 	            })
 	            <% if (config.successCallbacks) config.successCallbacks.each { %>
 	                .success(function(data) {
@@ -133,11 +150,21 @@
 	            <% } %>
 	            .error(function(jqXHR, textStatus, errorThrown) {
 	            	formWidget.handleSubmitError('${ id }', jqXHR);
+	            	<% if (config.submitLoadingMessage) { %>
+	                	ui.closeLoadingDialog();
+	                <% } %>
 	            });
 	        });
 		});
     </script>
+<% } else { /* standard form submission */ %>
+	<script>
+		jq('#${ id }').submit(function(e) {
+			ui.disableConfirmBeforeNavigating();
+		});
+	</script>
 <% } %>
+
 <% if (config.submitOnEvent) { %>
 	<script>
 		var timeoutId${ id } = null;

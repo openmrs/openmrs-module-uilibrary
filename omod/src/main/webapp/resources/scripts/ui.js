@@ -26,6 +26,21 @@ var ui = (function($) {
 		}
 	}
 	
+	var toQueryString = function(options) {
+		var ret = "?";
+		if (options) {
+			for (key in options) {
+				ret += key + '=' + options[key] + '&';
+			}
+		}
+		return ret;
+	}
+	
+	var confirmBeforeNavigationSetup = {
+		configured: false,
+		enabled: false
+	};
+	
 	return {
 		
 		/*
@@ -71,15 +86,34 @@ var ui = (function($) {
 			}
 		},
 		
+		pageLink: function(pageName, options) {
+			var ret = '/' + OPENMRS_CONTEXT_PATH + '/pages/' + pageName + '.page';
+			return ret + toQueryString(options);
+		},
+		
 		resourceLink: function(providerName, resourceName) {
 			if (providerName == null)
 				providerName = '*';
 			return '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + providerName + '/' + resourceName; 
 		},
 		
+		fragmentActionLink: function(fragmentName, actionName, options) {
+			var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + fragmentName + '/' + actionName + '.action';
+			return ret += toQueryString(options);
+		},
+		
+		getFragmentActionAsJson: function(fragmentName, actionName, params, callback) {
+			var url = this.fragmentActionLink(fragmentName, actionName, params);
+			jQuery.getJSON(url, params, function(result) {
+				if (callback) {
+					callback(result);
+				}
+			});
+		},
+		
 		openLoadingDialog: function(message) {
 			if ($('#loading-dialog-overlay').length == 0) {
-				$('#content').append('<div id="loading-dialog-overlay"></div>');
+				$('body').append('<div id="loading-dialog-overlay"></div>');
 
 				var html = '<div id="loading-dialog-message">';
 				html += '<img src="' + this.resourceLink('uilibrary', 'images/loading.gif') + '"/>';
@@ -87,7 +121,7 @@ var ui = (function($) {
 					html += message;
 				}
 				html += '</div>';
-				$('#content').append(html);
+				$('body').append(html);
 			}
 		},
 		
@@ -99,7 +133,57 @@ var ui = (function($) {
 		reloadPage: function() {
 			this.openLoadingDialog();
 			location.href = location.href;
+		},
+		
+		escapeHtmlAttribute: function(string) {
+			// TODO actually implement this
+			string = string.replace("'", "\'");
+			string = string.replace('"', '\\"');
+			return string;
+		},
+		
+		confirmBeforeNavigating: function(formSelector) {
+			if (!confirmBeforeNavigationSetup.configured) {
+				window.onbeforeunload = function() {
+					if (confirmBeforeNavigationSetup.enabled) {
+						var blockers = $('.confirm-before-navigating').filter(function() {
+								var jq = $(this);
+								return jq.data('confirmBeforeNavigating') === 'dirty'
+							}).length > 0;
+	
+						if (blockers) {
+							return "If you leave this page you will lose unsaved changes";
+						}
+					}
+				}
+				confirmBeforeNavigationSetup.configured = true;
+				confirmBeforeNavigationSetup.enabled = true;
+			}
+
+			var jq = $(formSelector);
+			
+			jq.addClass('confirm-before-navigating');
+			jq.data('confirmBeforeNavigating', 'clean');
+			jq.find(':input').on('change.confirm-before-navigating', function() {
+				$(this).parents('.confirm-before-navigating').data('confirmBeforeNavigating', 'dirty');
+			});
+		},
+		
+		cancelConfirmBeforeNavigating: function(formSelector) {
+			var jq = $(formSelector);
+			jq.find(':input').off('change.confirm-before-navigating');
+			jq.data('confirmBeforeNavigating', null);
+			jq.removeClass('confirm-before-navigating');
+		},
+		
+		disableConfirmBeforeNavigating: function() {
+			confirmBeforeNavigationSetup.enabled = false;
+		},
+		
+		enableConfirmBeforeNavigating: function() {
+			confirmBeforeNavigationSetup.enabled = true;
 		}
+		
 	};
 
 })(jQuery);
