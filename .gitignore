@@ -9,3 +9,4 @@ omod/target
 .DS_Store
 
 target/checkout/
+/target
