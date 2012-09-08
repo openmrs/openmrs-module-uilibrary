@@ -86,8 +86,8 @@ var ui = (function($) {
 			}
 		},
 		
-		pageLink: function(pageName, options) {
-			var ret = '/' + OPENMRS_CONTEXT_PATH + '/pages/' + pageName + '.page';
+		pageLink: function(providerName, pageName, options) {
+			var ret = '/' + OPENMRS_CONTEXT_PATH + '/pages/' + providerName + '/' + pageName + '.page';
 			return ret + toQueryString(options);
 		},
 		
