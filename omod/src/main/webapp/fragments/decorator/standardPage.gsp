@@ -1,8 +1,8 @@
-${ ui.includeFragment("standardIncludes") }
+${ ui.includeFragment("uilibrary", "standardIncludes") }
 
 <% if (config.beforeContent) { %>${ config.beforeContent }<% } %>
 
-${ ui.includeFragment("flashMessage") }
+${ ui.includeFragment("uilibrary", "flashMessage") }
 
 <div id="content">
 	<%= config.content %>

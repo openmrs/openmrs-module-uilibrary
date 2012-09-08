@@ -10,7 +10,7 @@
 <% ui.includeJavascript("uilibrary", "uiframework.js") %>
 <% ui.includeJavascript("uilibrary", "ui.js") %>
 
-${ ui.includeFragment("maybeRequireLogin") }
+${ ui.includeFragment("uilibrary", "maybeRequireLogin") }
 
 <script>
     var jq = jQuery;

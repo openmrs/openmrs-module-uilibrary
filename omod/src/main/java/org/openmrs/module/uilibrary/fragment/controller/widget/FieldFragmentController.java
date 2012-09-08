@@ -62,10 +62,10 @@ public class FieldFragmentController {
 			config.addAttribute("id", UiUtils.randomId("field"));
 		
 		if (config.containsKey("fieldFragment")) {
-			return new FragmentRequest(config.getAttribute("fieldFragment").toString(), config);
+			return new FragmentRequest("*", config.getAttribute("fieldFragment").toString(), config);
 		} else {
 			// by convention these are under
-			return new FragmentRequest("field/" + clazz.getName(), config);
+			return new FragmentRequest("*", "field/" + clazz.getName(), config);
 		}
 	}
 	

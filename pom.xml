@@ -33,6 +33,7 @@
 	
 	<properties>
 		<openMRSVersion>1.8.2</openMRSVersion>
+		<uiframeworkVersion>1.8</uiframeworkVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -57,7 +58,7 @@
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>uiframework-api</artifactId>
-				<version>1.1</version>
+				<version>${uiframeworkVersion}</version>
 				<scope>provided</scope>
 			</dependency>
 						
