@@ -3,7 +3,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>uilibrary</artifactId>
-	<version>1.5-SNAPSHOT</version>
+	<version>1.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>UI Library Module</name>
 	<description>Library of useful widgets, decorators, and fragments for the UI Framework module</description>
@@ -24,7 +24,8 @@
 		<connection>scm:git:git@github.com:djazayeri/openmrs-module-uilibrary.git</connection>
 		<developerConnection>scm:git:git@github.com:djazayeri/openmrs-module-uilibrary.git</developerConnection>
 		<url>scm:git:git@github.com:djazayeri/openmrs-module-uilibrary.git</url>
-	</scm>
+	  <tag>HEAD</tag>
+  </scm>
 
 	<modules>
 		<module>api</module>
