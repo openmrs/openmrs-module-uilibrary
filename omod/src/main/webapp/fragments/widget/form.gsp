@@ -35,11 +35,11 @@
     def url = config.url
     def resetOnSubmit = config.resetOnSubmit == null ? true : config.resetOnSubmit
     
-    if (config.page) {
-		url = ui.pageLink(config.page)
-	} else if (config.fragment && config.action) {
+    if (config.pageProvider && config.page) {
+		url = ui.pageLink(config.pageProvider, config.page)
+	} else if (config.fragmentProvider && config.fragment && config.action) {
 		mode = "json"
-		url = ui.actionLink(config.fragment, config.action, [successUrl: config.returnUrl])
+		url = ui.actionLink(config.fragmentProvider, config.fragment, config.action, [successUrl: config.returnUrl])
 	}
 
 	def fields = config.fields
@@ -82,21 +82,28 @@
     <div style="display: none" id="${ id }-globalerror" class="error"></div> 
 
 <% fields.each {
-    def fragment
-    if (it.fragment)
+    def fragment, fragmentProvider
+    if (it.fragment) {
         fragment = it.fragment
-    else if (it.class || (it.object && it.property))
+		fragmentProvider = it.fragmentProvider
+	}
+	else if (it.class || (it.object && it.property)) {
         fragment = "widget/field"
-    else if (it.value && !it.hiddenInputName)
+		fragmentProvider = "uilibrary"
+	}
+    else if (it.value && !it.hiddenInputName) {
     	fragment = "widget/field"
-    if (fragment) {
+		fragmentProvider = "uilibrary"
+	}
+
+	if (fragment) {
         fieldConfig = new FragmentConfiguration(it)
         fieldConfig.merge([ parentFormId: id, visibleFieldId: ui.randomId("field"), parentFormMode: mode ])
         if (!config.noDecoration)
             fieldConfig.merge([ decorator: "labeled", decoratorConfig: it ])
 %>
 		<% if (config.noDecoration && fieldConfig.label) { %>${ fieldConfig.label }<% } %>
-        ${ ui.includeFragment(fragment, fieldConfig) }
+        ${ ui.includeFragment(fragmentProvider, fragment, fieldConfig) }
         
 <%  } else if (it.hiddenInputName) { %>
         <input type="hidden" name="${ it.hiddenInputName }" value="${ it.value }"/>
