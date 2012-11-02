@@ -172,15 +172,17 @@
 	</script>
 <% } %>
 
-<% if (config.submitOnEvent) { %>
+<% if (config.submitOnEvent) {
+	def idToUse = id.replace('-', '')
+%>
 	<script>
-		var timeoutId${ id } = null;
+		var timeoutId${ idToUse } = null;
 		subscribe('${ config.submitOnEvent }', function() {
-			if (timeoutId${ id } != null) {
-				clearTimeout(timeoutId${ id });
-				timeoutId${ id } = null;
+			if (timeoutId${ idToUse } != null) {
+				clearTimeout(timeoutId${ idToUse });
+				timeoutId${ idToUse } = null;
 			}
-			timeoutId${ id } = setTimeout(function() {
+			timeoutId${ idToUse } = setTimeout(function() {
 				jq('#${ id }').submit();
 			}, 150);
 		});
