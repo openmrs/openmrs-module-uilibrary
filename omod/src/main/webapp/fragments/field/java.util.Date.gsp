@@ -11,10 +11,17 @@
 		    changeMonth: true,
 		    changeYear: true,
 		    showButtonPanel: true,
-            yearRange: '-110:+5'
+            yearRange: '-110:+5',
+		    autoSize: true
 			<% if (config.required) { %>
 				, onClose: function(dateText, inst) { clearErrors('${ config.id }-error'); validateRequired(dateText, '${ config.id }-error'); }
 			<% } %>
+            <% if (config.maxDate) { %>
+                , maxDate: '${ config.maxDate }'
+            <% } %>
+            <% if (config.minDate) { %>
+                , minDate: '${ config.minDate }'
+            <% } %>
 		});
 	});
 </script>
