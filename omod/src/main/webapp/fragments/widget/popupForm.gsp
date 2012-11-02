@@ -24,13 +24,13 @@
 <% if (config.buttonConfig) {
 	config.buttonConfig.onClick = onClick
 %>
-	${ ui.includeFragment("widget/button", config.buttonConfig) }
+	${ ui.includeFragment("uilibrary", "widget/button", config.buttonConfig) }
 <% } else {
 	config.linkConfig.onClick = onClick
 %>
-	${ ui.includeFragment("widget/link", config.linkConfig) }
+	${ ui.includeFragment("uilibrary", "widget/link", config.linkConfig) }
 <% } %>
 
 <div id="${ id }_form" style="display: none">
-    ${ ui.includeFragment("widget/form", config) }
+    ${ ui.includeFragment("uilibrary", "widget/form", config) }
 </div>
