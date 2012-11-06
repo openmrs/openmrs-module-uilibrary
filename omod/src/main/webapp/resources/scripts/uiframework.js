@@ -61,29 +61,6 @@ function fragmentActionError(jqXHR, defaultMessage) {
 	notifyError(defaultMessage);
 }
 
-// utility methods for js/gsp compatibility
-function actionLink(fragmentName, actionName, options) {
-	var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + fragmentName + '/' + actionName + '.action?';
-	if (options)
-		for (key in options)
-			ret += key + '=' + options[key] + '&';
-	return ret;
-}
-
-function pageLink(pageName, options) {
-	var ret = '/' + OPENMRS_CONTEXT_PATH + '/pages/' + pageName + '.page?';
-	if (options)
-		for (key in options)
-			ret += key + '=' + options[key] + '&';
-	return ret;
-}
-
-function resourceLink(providerName, resourceName) {
-	if (providerName == null)
-		providerName = '*';
-	return '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + providerName + '/' + resourceName; 
-}
-
 function isTrueHelper(test) {
 	if (!test)
 		return false;
@@ -303,14 +280,6 @@ function escapeHtml(string) {
 	string = string.replace(/</g, "&lt;");
 	string = string.replace(/>/g, "&gt;");
 	return string;
-}
-
-function getFragmentActionAsJson(fragmentName, actionName, params, callback) {
-	var url = '/' + CONTEXT_PATH + '/action/' + fragmentName + '/' + actionName + '.action';
-	jQuery.getJSON(url, params, function(result) {
-		if (callback)
-			callback(result);
-	});
 }
 
 function debugObject(obj) {

@@ -61,6 +61,6 @@ jq(function() {
 <input type="text" id="${ config.id }" size="${ size }" <% if (config.selected) { %> value="${ config.selected.label }" <% } %>/>
 <% if (showGetAll) { %>
 	<a href="javascript:jq('#${ config.id }').autocomplete('search', '').focus();" tabindex="-1">
-		<img src="${ ui.resourceLink("images/search_16.png") }"/>
+		<img src="${ ui.resourceLink("uilibrary", "images/search_16.png") }"/>
 	</a>
 <% } %>
