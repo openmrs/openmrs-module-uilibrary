@@ -87,7 +87,7 @@ var ui = (function($) {
 		},
 		
 		pageLink: function(providerName, pageName, options) {
-			var ret = '/' + OPENMRS_CONTEXT_PATH + '/pages/' + providerName + '/' + pageName + '.page';
+			var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + providerName + '/' + pageName + '.page';
 			return ret + toQueryString(options);
 		},
 		
@@ -97,13 +97,13 @@ var ui = (function($) {
 			return '/' + OPENMRS_CONTEXT_PATH + '/ms/uiframework/resource/' + providerName + '/' + resourceName; 
 		},
 		
-		fragmentActionLink: function(fragmentName, actionName, options) {
-			var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + fragmentName + '/' + actionName + '.action';
+		fragmentActionLink: function(providerName, fragmentName, actionName, options) {
+			var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + providerName + '/' + fragmentName + '/' + actionName + '.action';
 			return ret += toQueryString(options);
 		},
-		
-		getFragmentActionAsJson: function(fragmentName, actionName, params, callback) {
-			var url = this.fragmentActionLink(fragmentName, actionName, params);
+
+		getFragmentActionAsJson: function(providerName, fragmentName, actionName, params, callback) {
+			var url = this.fragmentActionLink(providerName, fragmentName, actionName, params);
 			jQuery.getJSON(url, params, function(result) {
 				if (callback) {
 					callback(result);
