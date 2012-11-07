@@ -140,6 +140,7 @@
                     <version>2.3.2</version>
                     <configuration>
                         <pushChanges>false</pushChanges>
+                        <localCheckout>true</localCheckout>
                         <autoVersionSubmodules>true</autoVersionSubmodules>
                         <tagNameFormat>@{project.version}</tagNameFormat>
                     </configuration>
