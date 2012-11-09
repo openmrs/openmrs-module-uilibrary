@@ -1,6 +1,6 @@
-<% ui.includeJavascript("coreFragments.js") %>
+<% ui.includeJavascript("uilibrary", "coreFragments.js") %>
 
-<%= ui.includeFragment("widget/selectList", [
+<%= ui.includeFragment("uilibrary", "widget/selectList", [
 		id: config.id,
         selected: [ config.initialValue?.role ],
         formFieldName: config.formFieldName,

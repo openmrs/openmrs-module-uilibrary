@@ -1,5 +1,5 @@
 <%
-    ui.includeJavascript("coreFragments.js")
+    ui.includeJavascript("uilibrary", "coreFragments.js")
 %>
 
 <input type="radio" name="${ config.formFieldName }" value="true" id="${ config.id }-true" <% if (config.initialValue) { %>checked="true"<% } %>/>

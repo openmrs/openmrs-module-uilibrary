@@ -4,7 +4,7 @@ function formatEncounter(encounter) {
 }
 </script>
 
-<%= ui.includeFragment("widget/autocomplete", [
+<%= ui.includeFragment("uilibrary", "widget/autocomplete", [
 	id: config.id,
 	initialValue: config.initialValue,
 	formFieldName: config.formFieldName,
