@@ -1,4 +1,4 @@
-<% ui.decorateWith("standardPage") %>
+<% ui.decorateWith("uilibrary", "standardPage") %>
 
 <div style="float: right; width: 33%">
 	<fieldset>

@@ -1,9 +1,9 @@
 <%
 	def id = config.id ?: ui.randomId("infobox")
 	
-	ui.includeCss("jquery-ui.css")
-	ui.includeJavascript("jquery.js")
-	ui.includeJavascript("jquery-ui.js")
+	ui.includeCss("uilibrary", "jquery-ui.css")
+	ui.includeJavascript("uilibrary", "jquery.js")
+	ui.includeJavascript("uilibrary", "jquery-ui.js")
 %>
 
 <script>
@@ -13,7 +13,7 @@ function Infobox(id) {
 	
 	jQuery('#' + rootId)
 		.addClass('ui-widget ui-widget-content ui-corner-all')
-		.html('<div class="title ui-widget-header ui-corner-all"><img src="${ ui.resourceLink("images/info_16.png") }"/>Info Box</div><div class="content"></div>');
+		.html('<div class="title ui-widget-header ui-corner-all"><img src="${ ui.resourceLink("uilibrary", "images/info_16.png") }"/>Info Box</div><div class="content"></div>');
 	
 	this.setTitle = function(html) {
 		jQuery('#' + rootId + ' > .title').html(html);

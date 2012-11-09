@@ -1,5 +1,5 @@
 
-<%= ui.includeFragment("widget/selectList", [
+<%= ui.includeFragment("uilibrary", "widget/selectList", [
         selected: [ config.initialValue?.id ],
         formFieldName: config.formFieldName,
         options: context.getLocationService().getAllLocations(),

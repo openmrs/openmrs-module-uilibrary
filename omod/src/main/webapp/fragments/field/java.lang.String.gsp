@@ -6,7 +6,7 @@
 	ui.includeJavascript("uilibrary", "coreFragments.js")
 %>
 <% if (config?.config?.options) { %>
-    ${ ui.includeFragment("widget/selectList", [
+    ${ ui.includeFragment("uilibrary", "widget/selectList", [
             id: config.id,
             formFieldName: config.formFieldName,
             options: config.config.options,
