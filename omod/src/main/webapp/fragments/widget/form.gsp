@@ -27,7 +27,7 @@
 	import org.openmrs.ui.framework.fragment.FragmentConfiguration
 	import org.apache.commons.beanutils.PropertyUtils
 
-	ui.includeJavascript("coreFragments.js")
+	ui.includeJavascript("uilibrary", "coreFragments.js")
 	
     def id = config.id ?: ui.randomId("form")
     

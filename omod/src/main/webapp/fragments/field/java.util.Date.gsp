@@ -1,5 +1,5 @@
 <%
-    ui.includeJavascript("coreFragments.js")
+    ui.includeJavascript("uilibrary", "coreFragments.js")
 %>
 
 <script>
