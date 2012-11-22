@@ -30,7 +30,7 @@
 	ui.includeJavascript("uilibrary", "coreFragments.js")
 	
     def id = config.id ?: ui.randomId("form")
-    
+	def fields = config.fields ?: []
     def mode = config.mode ?: "form"
     def url = config.url
     def resetOnSubmit = config.resetOnSubmit == null ? true : config.resetOnSubmit
@@ -42,35 +42,42 @@
 		url = ui.actionLink(config.fragmentProvider, config.fragment, config.action, [successUrl: config.returnUrl])
 	}
 
-	def fields = config.fields
 	if (config.commandObject) {
-		if (!fields)
-    		fields = []
-    	// make fields for: hiddenProperties, properties
-    	// prefix all formFieldNames with: prefix
-        def messagePrefix = config.commandObject.class.simpleName
+
+		// Prefix all field names with config.prefix
     	def prefix = config.prefix ?: ""
+
+		// Make fields for all hidden properties
     	if (config.hiddenProperties) {
     		config.hiddenProperties.each { propName ->
     			fields << [ hiddenInputName: "${ prefix }.${ propName }", value: ui.convert(config.commandObject."${ propName }", java.lang.String) ] 
     		}
     	}
+
+		// Make fields for all command object properties
     	if (config.properties) {
+
+			// Get the view provider
+			def provider = config.fragmentProvider ?: config.pageProvider
+
+			// Messages format is <provider>.<commandObject.class>.<propertyName>
+			def messagePrefix = provider + "." + config.commandObject.class.simpleName
+
     		config.properties.each { propName ->
     			def override = config?.fieldConfig?."${ propName }"
-    			def fieldOverride = new org.openmrs.ui.framework.fragment.FragmentConfiguration()
-    			fieldOverride.mergeAttributes([
-    						label: ui.message("${ messagePrefix }.${ propName }"),
-    		                formFieldName: "${ prefix }.${ propName }",
-    		                object: config.commandObject,
-    		                property: propName,
-    		                config: config?.propConfig?."${ propName }"
-						]) 
+    			def fieldConfig = new org.openmrs.ui.framework.fragment.FragmentConfiguration([
+					label: ui.message("${ messagePrefix }.${ propName }"),
+					formFieldName: "${ prefix }.${ propName }",
+					object: config.commandObject,
+					property: propName,
+					config: config?.propConfig?."${ propName }"
+				])
     			if (override)
-    				fieldOverride.mergeAttributes(override)
-    		    fields << fieldOverride
+					fieldConfig.putAll(override)
+    		    fields << fieldConfig
     		}
     	}
+
     	if (config.extraFields) {
     		fields.addAll(config.extraFields)
     	}
