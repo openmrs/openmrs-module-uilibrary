@@ -17,26 +17,29 @@ function openmrsConfirm(message, id) {
 	return confirm(message)
 }
 
-// global flash messages
+// Deprecated - use ui.notifySuccess
 function notifySuccess(html) {
 	if (html && html != '') {
 		$().toastmessage('showSuccessToast', html);
 	}
 }
 
+// Deprecated - use ui.notifyError
 function notifyError(html) {
 	if (html && html != '') {
 		$().toastmessage('showToast', { text: html, sticky: true, type: 'error' });
 	}
 }
 
-function flashSuccess(html) { // deprecate this
+// Deprecated - use ui.notifySuccess
+function flashSuccess(html) {
 	if (html && html != '') {
 		$().toastmessage('showSuccessToast', html);
 	}
 }
 
-function flashError(html) { // deprecate this
+// Deprecated - use ui.notifyError
+function flashError(html) {
 	if (html && html != '') {
 		$('#error-message').html(html);
 		$('#errors').show('fast');
