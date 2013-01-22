@@ -151,6 +151,7 @@ function getJsonAsEvent(url, eventTitle) {
 
 var openmrsDialogCurrentlyShown = null;
 var openmrsDialogIFrame = null;
+var openmrsDialogSuccessCallback = null;
 
 function showDivAsDialog(selector, title, opts) {
 	// There is (what I consider) a bug in jquery-ui dialog, where displaying a dialog that
@@ -170,8 +171,10 @@ function showDivAsDialog(selector, title, opts) {
 			modal: true,
 			title: title
 		};
-	if (opts)
-	optsToUse = $.extend(optsToUse, opts)
+	if (opts) {
+		optsToUse = $.extend(optsToUse, opts);
+	}
+	openmrsDialogSuccessCallback = optsToUse.successCallback; // TODO attach this to the close button
 	openmrsDialogCurrentlyShown = $(selector).dialog(optsToUse);
 	dialogScripts.each(function() {
 		dialogContainer.get(0).appendChild(this);
