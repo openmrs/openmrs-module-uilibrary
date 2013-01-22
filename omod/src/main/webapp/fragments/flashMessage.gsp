@@ -8,17 +8,7 @@
         session.setAttribute(org.openmrs.ui.framework.WebConstants.OPENMRS_MSG_ATTR, null);
     }
 %>
-
-<div id="errors" <% if (!err) { %>style="display: none"<% } %>>
-    <div id="error-message" style="float: left">
-        <% if (err) { %>${ ui.message(err) }<% } %>
-    </div>
-    <div style="clear: both"></div>
-</div>
-
-<div id="flash" <% if (!msg) { %>style="display: none"<% } %>>
-    <div id="flash-message" style="float: left">
-        <% if (msg) { %>${ ui.message(msg) }<% } %>
-    </div>
-    <div style="clear: both"></div>
-</div>
+<script type="text/javascript">
+	<% if (err) { %>ui.notifyError('${ err.replace("'", "\\'") }');<% } %>
+	<% if (msg) { %>ui.notifySuccess('${ msg.replace("'", "\\'") }');<% } %>
+</script>
