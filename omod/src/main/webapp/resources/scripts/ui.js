@@ -182,8 +182,19 @@ var ui = (function($) {
 		
 		enableConfirmBeforeNavigating: function() {
 			confirmBeforeNavigationSetup.enabled = true;
+		},
+
+		notifySuccess: function(html) {
+			if (html && html != '') {
+				jq().toastmessage('showSuccessToast', html);
+			}
+		},
+
+	 	notifyError: function(html) {
+			if (html && html != '') {
+				jq().toastmessage('showToast', { text: html, sticky: true, type: 'error' });
+			}
 		}
-		
 	};
 
 })(jQuery);
