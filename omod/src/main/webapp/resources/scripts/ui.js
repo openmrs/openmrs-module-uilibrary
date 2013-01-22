@@ -30,7 +30,7 @@ var ui = (function($) {
 		var ret = "?";
 		if (options) {
 			for (key in options) {
-				ret += key + '=' + options[key] + '&';
+				ret += key + '=' + encodeURIComponent(options[key]) + '&';
 			}
 		}
 		return ret;
