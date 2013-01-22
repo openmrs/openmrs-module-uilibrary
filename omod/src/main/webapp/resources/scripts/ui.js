@@ -186,7 +186,7 @@ var ui = (function($) {
 
 		notifySuccess: function(html) {
 			if (html && html != '') {
-				jq().toastmessage('showSuccessToast', html);
+				jq().toastmessage('showToast', { text: html, stayTime: 5000, sticky: false, type: 'success' });
 			}
 		},
 
