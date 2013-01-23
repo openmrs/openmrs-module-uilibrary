@@ -9,6 +9,6 @@
     }
 %>
 <script type="text/javascript">
-	<% if (err) { %>ui.notifyError('${ err.replace("'", "\\'") }');<% } %>
-	<% if (msg) { %>ui.notifySuccess('${ msg.replace("'", "\\'") }');<% } %>
+	<% if (err) { %>ui.notifyError('${ ui.message(err).replace("'", "\\'") }');<% } %>
+	<% if (msg) { %>ui.notifySuccess('${ ui.message(msg).replace("'", "\\'") }');<% } %>
 </script>
