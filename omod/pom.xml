@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>uilibrary</artifactId>
-		<version>2.0.4-SNAPSHOT</version>
+		<version>2.0.3.1</version>
 	</parent>
 
 	<artifactId>uilibrary-omod</artifactId>
