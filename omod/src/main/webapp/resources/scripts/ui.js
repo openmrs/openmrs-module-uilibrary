@@ -30,7 +30,7 @@ var ui = (function($) {
 		var ret = "?";
 		if (options) {
 			for (key in options) {
-				ret += key + '=' + options[key] + '&';
+				ret += key + '=' + encodeURIComponent(options[key]) + '&';
 			}
 		}
 		return ret;
@@ -182,8 +182,19 @@ var ui = (function($) {
 		
 		enableConfirmBeforeNavigating: function() {
 			confirmBeforeNavigationSetup.enabled = true;
+		},
+
+		notifySuccess: function(html) {
+			if (html && html != '') {
+				jq().toastmessage('showToast', { text: html, stayTime: 5000, sticky: false, type: 'success' });
+			}
+		},
+
+	 	notifyError: function(html) {
+			if (html && html != '') {
+				jq().toastmessage('showToast', { text: html, sticky: true, type: 'error' });
+			}
 		}
-		
 	};
 
 })(jQuery);

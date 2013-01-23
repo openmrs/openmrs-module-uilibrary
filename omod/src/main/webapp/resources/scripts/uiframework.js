@@ -17,26 +17,29 @@ function openmrsConfirm(message, id) {
 	return confirm(message)
 }
 
-// global flash messages
+// Deprecated - use ui.notifySuccess
 function notifySuccess(html) {
 	if (html && html != '') {
 		$().toastmessage('showSuccessToast', html);
 	}
 }
 
+// Deprecated - use ui.notifyError
 function notifyError(html) {
 	if (html && html != '') {
 		$().toastmessage('showToast', { text: html, sticky: true, type: 'error' });
 	}
 }
 
-function flashSuccess(html) { // deprecate this
+// Deprecated - use ui.notifySuccess
+function flashSuccess(html) {
 	if (html && html != '') {
 		$().toastmessage('showSuccessToast', html);
 	}
 }
 
-function flashError(html) { // deprecate this
+// Deprecated - use ui.notifyError
+function flashError(html) {
 	if (html && html != '') {
 		$('#error-message').html(html);
 		$('#errors').show('fast');
@@ -148,6 +151,7 @@ function getJsonAsEvent(url, eventTitle) {
 
 var openmrsDialogCurrentlyShown = null;
 var openmrsDialogIFrame = null;
+var openmrsDialogSuccessCallback = null;
 
 function showDivAsDialog(selector, title, opts) {
 	// There is (what I consider) a bug in jquery-ui dialog, where displaying a dialog that
@@ -167,8 +171,10 @@ function showDivAsDialog(selector, title, opts) {
 			modal: true,
 			title: title
 		};
-	if (opts)
-	optsToUse = $.extend(optsToUse, opts)
+	if (opts) {
+		optsToUse = $.extend(optsToUse, opts);
+	}
+	openmrsDialogSuccessCallback = optsToUse.successCallback; // TODO attach this to the close button
 	openmrsDialogCurrentlyShown = $(selector).dialog(optsToUse);
 	dialogScripts.each(function() {
 		dialogContainer.get(0).appendChild(this);
