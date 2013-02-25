@@ -3,15 +3,18 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>uilibrary</artifactId>
-	<version>2.0.4</version>
+	<version>2.0.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>UI Library Module</name>
 	<description>Library of useful widgets, decorators, and fragments for the UI Framework module</description>
 	<url>https://wiki.openmrs.org/display/docs/UI+Library+Module+Module</url>
-	
+
 	<developers>
 		<developer>
 			<name>djazayeri</name>
+		</developer>
+		<developer>
+			<name>rowanseymour</name>
 		</developer>
 	</developers>
 	
@@ -40,22 +43,9 @@
 
 	<dependencyManagement>
 		<dependencies>
-		
-			<!--
-			Libraries to add as dependencies with compile or runtime scope:
-			Find matching dependencies in the maven central repository.
-			<dependency>
-				<groupId>org.other.library</groupId>
-				<artifactId>library-name</artifactId>
-				<version>library.version</version>
-				<scope>compile</scope>
-			</dependency>
-			-->
-			
-						
+
 			<!-- Begin OpenMRS modules -->
-			
-						
+
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>uiframework-api</artifactId>
@@ -64,7 +54,6 @@
 			</dependency>
 						
 			<!-- End OpenMRS modules -->
-			
 
 			<!-- Begin OpenMRS core -->
 			
