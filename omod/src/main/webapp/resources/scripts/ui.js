@@ -99,11 +99,14 @@ var ui = (function($) {
 		
 		fragmentActionLink: function(providerName, fragmentName, actionName, options) {
 			var ret = '/' + OPENMRS_CONTEXT_PATH + '/' + providerName + '/' + fragmentName + '/' + actionName + '.action';
-			return ret += toQueryString(options);
+			if (options) {
+				ret += toQueryString(options);
+			}
+			return ret;
 		},
 
 		getFragmentActionAsJson: function(providerName, fragmentName, actionName, params, callback) {
-			var url = this.fragmentActionLink(providerName, fragmentName, actionName, params);
+			var url = this.fragmentActionLink(providerName, fragmentName, actionName, null);
 			jQuery.getJSON(url, params, function(result) {
 				if (callback) {
 					callback(result);
