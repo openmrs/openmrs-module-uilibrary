@@ -168,4 +168,34 @@
         </snapshotRepository>
     </distributionManagement>
 
+	<!-- different profiles for building/testing against different version of 
+		openmrs -->
+	<profiles>
+		<profile>
+			<id>openmrs-1.9</id>
+
+			<properties>
+				<openMRSVersion>1.9.1</openMRSVersion>
+				<openMRSMinorVersion>1.9</openMRSMinorVersion>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>openmrs-2.0</id>
+
+			<properties>
+				<openMRSVersion>2.0.0-SNAPSHOT</openMRSVersion>
+				<openMRSMinorVersion>2.0</openMRSMinorVersion>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>release-tests</id>
+			<modules>
+				<module>release-tests</module>
+			</modules>
+		</profile>
+
+	</profiles>
+
 </project>
