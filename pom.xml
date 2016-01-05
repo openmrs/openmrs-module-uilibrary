@@ -189,13 +189,6 @@
 			</properties>
 		</profile>
 
-		<profile>
-			<id>release-tests</id>
-			<modules>
-				<module>release-tests</module>
-			</modules>
-		</profile>
-
 	</profiles>
 
 </project>
