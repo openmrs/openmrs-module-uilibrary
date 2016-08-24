@@ -1,1 +1,5 @@
+[![Build Status](https://travis-ci.org/openmrs/openmrs-module-uilibrary.svg?branch=master)](https://travis-ci.org/openmrs/openmrs-module-uilibrary)
+
+UI Library Module
+====================
 Library of useful widgets, decorators, and fragments for use with openmrs-module-uiframework
