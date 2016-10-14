@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.openmrs.hibernate:hibernate:3.2.5.ga-mod">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openmrs/hibernate/hibernate/3.2.5.ga-mod/hibernate-3.2.5.ga-mod.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openmrs/hibernate/hibernate/3.2.5.ga-mod/hibernate-3.2.5.ga-mod-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openmrs/hibernate/hibernate/3.2.5.ga-mod/hibernate-3.2.5.ga-mod-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

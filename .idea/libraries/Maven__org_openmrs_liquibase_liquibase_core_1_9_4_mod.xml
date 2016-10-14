@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.openmrs.liquibase:liquibase-core:1.9.4-mod">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openmrs/liquibase/liquibase-core/1.9.4-mod/liquibase-core-1.9.4-mod.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openmrs/liquibase/liquibase-core/1.9.4-mod/liquibase-core-1.9.4-mod-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/openmrs/liquibase/liquibase-core/1.9.4-mod/liquibase-core-1.9.4-mod-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
