@@ -37,8 +37,9 @@
 	</modules>
 	
 	<properties>
-		<openMRSVersion>1.9.1</openMRSVersion>
-		<uiframeworkVersion>2.0</uiframeworkVersion>
+		<openMRSVersion>2.7.0</openMRSVersion>
+		<uiframeworkVersion>4.0.0</uiframeworkVersion>
+		<javaCompilerVersion>1.8</javaCompilerVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -110,8 +111,8 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<target>1.6</target>
-						<source>1.6</source>
+						<target>${javaCompilerVersion}</target>
+						<source>${javaCompilerVersion}</source>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -168,28 +169,5 @@
             <url>https://mavenrepo.openmrs.org/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
-
-	<!-- different profiles for building/testing against different version of 
-		openmrs -->
-	<profiles>
-		<profile>
-			<id>openmrs-1.9</id>
-
-			<properties>
-				<openMRSVersion>1.9.1</openMRSVersion>
-				<openMRSMinorVersion>1.9</openMRSMinorVersion>
-			</properties>
-		</profile>
-		
-		<profile>
-			<id>openmrs-2.0</id>
-
-			<properties>
-				<openMRSVersion>2.0.0-SNAPSHOT</openMRSVersion>
-				<openMRSMinorVersion>2.0</openMRSMinorVersion>
-			</properties>
-		</profile>
-
-	</profiles>
 
 </project>
